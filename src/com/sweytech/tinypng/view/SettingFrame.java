@@ -1,6 +1,7 @@
 package com.sweytech.tinypng.view;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Setting
@@ -9,11 +10,50 @@ import javax.swing.*;
  */
 public class SettingFrame extends JFrame {
 
-    private JTextField mTxtTitle;
-    private JTextArea mTxtKeyLicense;
+    private JLabel mTxtTitle;
+    private JTextField mTxtKeyLicense;
+    private JPanel mPanel1, mPanel2;
     private JButton mBtnOK;
 
-    private void init(){
+    public SettingFrame() {
+        init();
+    }
+
+    private void init() {
+
+        mTxtTitle = new JLabel();
+        mTxtTitle.setText("Enter your TinyPNG API Key:");
+//        mTxtTitle.setBounds(50, 20, 200, 30);
+
+        mTxtKeyLicense = new JTextField();
+//        mTxtKeyLicense.setBounds(48, 55, 300, 30);
+
+        mPanel1 = new JPanel();
+        mPanel1.setLayout(new BorderLayout(100,10));
+        mPanel1.add(mTxtTitle,BorderLayout.NORTH);
+        mPanel1.add(mTxtKeyLicense,BorderLayout.SOUTH);
+
+        mPanel2 = new JPanel();
+        mBtnOK = new JButton();
+        mBtnOK.setText("OK");
+        mPanel2.add(mBtnOK);
+
+        mBtnOK.addActionListener(e -> {
+            System.out.print("ok");
+            setVisible(false);
+            //for test
+            System.exit(0);
+        });
+
+        add(mPanel1, BorderLayout.CENTER);
+        add(mPanel2, BorderLayout.SOUTH);
+
+        this.setTitle("Setting");
+        this.setSize(400, 110);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
     }
+
 }
