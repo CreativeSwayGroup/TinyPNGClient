@@ -1,12 +1,21 @@
 package com.sweytech.tinypng.view;
 
 import com.sweytech.tinypng.util.PropertiesManager;
+import com.sweytech.tinypng.util.TinyPNGManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Main
@@ -36,6 +45,7 @@ public class MainFrame extends JFrame {
         initWorkSpace();
         initLogSpace();
 
+        TinyPNGManager.init();
     }
 
     /**
@@ -94,11 +104,31 @@ public class MainFrame extends JFrame {
 
         JLabel label = new JLabel();
         label.setBounds(0, 0, 400, 200);
-        label.setText("Drop your images here");
+        label.setText("Drag your images here");
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setVerticalAlignment(JLabel.CENTER);
+        new DropTarget(label, DnDConstants.ACTION_COPY_OR_MOVE, new DropTargetAdapter() {
+            @Override
+            public void drop(DropTargetDropEvent dtde) {
+                try {
+                    if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+                        dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);//接收拖拽来的数据
+                        String result = dtde.getTransferable().getTransferData(DataFlavor.javaFileListFlavor).toString();
+                        List<String> dragList = parseDragList(result);
+                        TinyPNGManager.compressImages(dragList);
+
+                        dtde.dropComplete(true);
+                    } else {
+                        dtde.rejectDrop();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         getContentPane().add(label);
+
     }
 
     private void initLogSpace() {
@@ -146,5 +176,31 @@ public class MainFrame extends JFrame {
 
     private Image getLogoImage() {
         return Toolkit.getDefaultToolkit().getImage("resource/ic_logo.png");
+    }
+
+    /**
+     * parse and filter image files
+     *
+     * @param dragString
+     * @return
+     */
+    private List<String> parseDragList(String dragString) {
+        String data = dragString.substring(1, dragString.length() - 1);
+        if (data == null || data.length() == 0) {
+            return null;
+        }
+        String[] items = data.split(",");
+        List<String> list = new ArrayList<>(Arrays.asList(items));
+        int listSize = list.size();
+        if (listSize == 0) {
+            return null;
+        }
+        for (int i = listSize - 1; i > 0; i--) {
+            String fileName = list.get(i).toLowerCase();
+            if (!(fileName.endsWith("png") || fileName.endsWith("jpg") || fileName.endsWith("jpeg"))) {
+                list.remove(i);
+            }
+        }
+        return list;
     }
 }
