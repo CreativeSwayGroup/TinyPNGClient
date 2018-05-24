@@ -72,6 +72,37 @@ public class SettingFrame extends JDialog {
     }
 
     /**
+     * get saved api key
+     */
+    @Nullable
+    public static String getApiKey() {
+        File file = new File(getProjectPath() + "/TinyPNGClient.config");
+        if (file.exists()) {
+            FileReader fileReader = null;
+            try {
+                StringBuilder key = new StringBuilder();
+                fileReader = new FileReader(file);
+                char[] buf = new char[1024];
+                int num = 0;
+                while ((num = fileReader.read(buf)) != -1) {
+                    key.append(buf, 0, num);
+                }
+                return key.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    fileReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * create new file(with jar path) if not exists and write string into
      *
      * @param key
@@ -113,7 +144,7 @@ public class SettingFrame extends JDialog {
      * get code in path
      */
     @Nullable
-    private String getProjectPath() {
+    private static String getProjectPath() {
         URL url = Entrance.class.getProtectionDomain().getCodeSource().getLocation();
         String filePath = null;
         try {
