@@ -16,6 +16,10 @@ public final class TinyPNGManager {
         HttpManager.init();
     }
 
+    public static String getAuthorization() {
+        return basic("your api key");
+    }
+
     public static String getOutputDir() {
         String output = System.getProperty("user.dir") + File.separator + PropertiesManager.getAppName() + " output";
         File file = new File(output);
@@ -57,10 +61,6 @@ public final class TinyPNGManager {
 
             }
         });
-    }
-
-    public static String getAuthorization() {
-        return basic("");
     }
 
     private static String basic(String password) {
