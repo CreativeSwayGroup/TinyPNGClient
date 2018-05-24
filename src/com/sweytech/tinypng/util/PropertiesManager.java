@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
  */
 public final class PropertiesManager {
 
-    public static String KEY_APP_NAME = "app_name";
-    public static String KEY_VERSION_NAME = "version_name";
+    private static final String KEY_APP_NAME = "app_name";
+    private static final String KEY_VERSION_NAME = "version_name";
 
     public static String getAppName() {
         return getProperties(KEY_APP_NAME);
