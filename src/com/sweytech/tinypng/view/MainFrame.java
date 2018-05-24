@@ -3,6 +3,7 @@ package com.sweytech.tinypng.view;
 import com.sweytech.tinypng.util.PropertiesManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,13 +24,18 @@ public class MainFrame extends JFrame {
 
     public void init() {
 
-        initMenuBar();
-
+        this.setIconImage(getLogoImage());
         this.setTitle(PropertiesManager.getAppName() + " " + PropertiesManager.getVersionName());
         this.setSize(400, 500);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        getContentPane().setLayout(null);
+
+        initMenuBar();
+        initWorkSpace();
+        initLogSpace();
+
     }
 
     /**
@@ -84,13 +90,42 @@ public class MainFrame extends JFrame {
         setJMenuBar(menuBar);
     }
 
+    private void initWorkSpace() {
+
+        JLabel label = new JLabel();
+        label.setBounds(0, 0, 400, 200);
+        label.setText("Drop your images here");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setVerticalAlignment(JLabel.CENTER);
+
+        getContentPane().add(label);
+    }
+
+    private void initLogSpace() {
+
+        JLabel logLabel = new JLabel("  Log:");
+        logLabel.setBounds(0, 200, 400, 15);
+        logLabel.setBackground(Color.BLACK);
+        logLabel.setForeground(Color.WHITE);
+        logLabel.setOpaque(true);
+        logLabel.setHorizontalTextPosition(10);
+
+        JTextArea textArea = new JTextArea();
+        textArea.setBounds(0, 215, 400, 300);
+        textArea.setEnabled(false);
+
+        getContentPane().add(logLabel);
+        getContentPane().add(textArea);
+    }
+
     /**
      * show about dialog
      */
     private void showAbout() {
         JOptionPane.showMessageDialog(null, PropertiesManager.getAppName()
-                + "\t" + PropertiesManager.getVersionName() + "\n" +
-                "Copyright©2018 Creative Sway Group");
+                        + "\t" + PropertiesManager.getVersionName() + "\n" +
+                        "Copyright©2018 Creative Sway Group", "About", JOptionPane.PLAIN_MESSAGE
+                , new ImageIcon(getLogoImage()));
     }
 
     /**
@@ -107,5 +142,9 @@ public class MainFrame extends JFrame {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+    }
+
+    private Image getLogoImage() {
+        return Toolkit.getDefaultToolkit().getImage("resource/ic_logo.png");
     }
 }

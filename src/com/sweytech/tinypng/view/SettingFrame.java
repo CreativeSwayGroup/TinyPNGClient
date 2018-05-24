@@ -8,7 +8,7 @@ import java.awt.*;
  * Created by arjinmc on 2018/5/23
  * Email: arjinmc@hotmail.com
  */
-public class SettingFrame extends JFrame {
+public class SettingFrame extends JDialog {
 
     private JLabel mTxtTitle;
     private JTextField mTxtKeyLicense;
@@ -29,9 +29,9 @@ public class SettingFrame extends JFrame {
 //        mTxtKeyLicense.setBounds(48, 55, 300, 30);
 
         mPanel1 = new JPanel();
-        mPanel1.setLayout(new BorderLayout(100,10));
-        mPanel1.add(mTxtTitle,BorderLayout.NORTH);
-        mPanel1.add(mTxtKeyLicense,BorderLayout.SOUTH);
+        mPanel1.setLayout(new BorderLayout(100, 10));
+        mPanel1.add(mTxtTitle, BorderLayout.NORTH);
+        mPanel1.add(mTxtKeyLicense, BorderLayout.SOUTH);
 
         mPanel2 = new JPanel();
         mBtnOK = new JButton();
@@ -50,6 +50,8 @@ public class SettingFrame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setModalityType(ModalityType.APPLICATION_MODAL);
+
 
     }
 
