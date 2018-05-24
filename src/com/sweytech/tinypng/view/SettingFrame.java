@@ -39,10 +39,7 @@ public class SettingFrame extends JFrame {
         mPanel2.add(mBtnOK);
 
         mBtnOK.addActionListener(e -> {
-            System.out.print("ok");
             setVisible(false);
-            //for test
-            System.exit(0);
         });
 
         add(mPanel1, BorderLayout.CENTER);
