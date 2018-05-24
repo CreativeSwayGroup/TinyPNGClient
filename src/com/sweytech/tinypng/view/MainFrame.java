@@ -1,5 +1,7 @@
 package com.sweytech.tinypng.view;
 
+import com.sweytech.tinypng.util.PropertiesManager;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URI;
@@ -23,13 +25,16 @@ public class MainFrame extends JFrame {
 
         initMenuBar();
 
-        this.setTitle("TinyPNG Client v1.0");
+        this.setTitle(PropertiesManager.getAppName() + " " + PropertiesManager.getVersionName());
         this.setSize(400, 500);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * init menu bar
+     */
     private void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
@@ -65,7 +70,7 @@ public class MainFrame extends JFrame {
         });
 
         JMenuItem aboutMenuItem = new JMenuItem();
-        aboutMenuItem.setText("About TinyPNG Client");
+        aboutMenuItem.setText("About " + PropertiesManager.getAppName());
         aboutMenuItem.addActionListener(e -> showAbout());
 
         aboutMenu.add(sourceMenuItem);
@@ -83,7 +88,8 @@ public class MainFrame extends JFrame {
      * show about dialog
      */
     private void showAbout() {
-        JOptionPane.showMessageDialog(null, "TinyPNG Client v1.0" + "\n" +
+        JOptionPane.showMessageDialog(null, PropertiesManager.getAppName()
+                + "\t" + PropertiesManager.getVersionName() + "\n" +
                 "Copyright©2018 Creative Sway Group");
     }
 

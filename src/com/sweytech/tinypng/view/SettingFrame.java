@@ -47,7 +47,7 @@ public class SettingFrame extends JFrame {
 
         this.setTitle("Setting");
         this.setSize(400, 110);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
