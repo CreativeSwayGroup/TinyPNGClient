@@ -1,14 +1,13 @@
 package com.sweytech.tinypng.view;
 
-import com.sun.istack.internal.Nullable;
-import com.sweytech.tinypng.Entrance;
+import com.sweytech.tinypng.util.TinyPNGManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.io.*;
-import java.net.URL;
-import java.net.URLDecoder;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Setting
@@ -29,10 +28,9 @@ public class SettingFrame extends JDialog {
     private void init() {
         mTxtTitle = new JLabel();
         mTxtTitle.setText("Enter your TinyPNG API Key:");
-//        mTxtTitle.setBounds(50, 20, 200, 30);
 
         mTxtKeyLicense = new JTextField();
-//        mTxtKeyLicense.setBounds(48, 55, 300, 30);
+        mTxtKeyLicense.setText(TinyPNGManager.getApiKey());
 
         mPanel1 = new JPanel();
         mPanel1.setLayout(new GridLayout(2, 1, 0, 10));
@@ -72,44 +70,13 @@ public class SettingFrame extends JDialog {
     }
 
     /**
-     * get saved api key
-     */
-    @Nullable
-    public static String getApiKey() {
-        File file = new File(getProjectPath() + "/TinyPNGClient.config");
-        if (file.exists()) {
-            FileReader fileReader = null;
-            try {
-                StringBuilder key = new StringBuilder();
-                fileReader = new FileReader(file);
-                char[] buf = new char[1024];
-                int num = 0;
-                while ((num = fileReader.read(buf)) != -1) {
-                    key.append(buf, 0, num);
-                }
-                return key.toString();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    fileReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * create new file(with jar path) if not exists and write string into
      *
      * @param key
      * @return
      */
     private boolean createAndWriteConfig(String key) {
-        File file = new File(getProjectPath() + "/TinyPNGClient.config");
+        File file = new File(TinyPNGManager.getProjectPath() + "/TinyPNGClient.config");
         boolean flag = true;
         if (!file.exists()) {
             try {
@@ -138,31 +105,6 @@ public class SettingFrame extends JDialog {
         }
 
         return false;
-    }
-
-    /**
-     * get code in path
-     */
-    @Nullable
-    private static String getProjectPath() {
-        URL url = Entrance.class.getProtectionDomain().getCodeSource().getLocation();
-        String filePath = null;
-        try {
-            filePath = URLDecoder.decode(url.getPath(), "utf-8");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (filePath != null) {
-            if (filePath.endsWith(".jar")) {
-                filePath = filePath.substring(0, filePath.lastIndexOf("/") + 1);
-            }
-            File file = new File(filePath);
-            filePath = file.getAbsolutePath();
-            return filePath;
-        }
-
-        return null;
     }
 
     /**
