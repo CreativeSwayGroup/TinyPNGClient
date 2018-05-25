@@ -1,6 +1,6 @@
 package com.sweytech.tinypng.view;
 
-import com.sweytech.tinypng.util.PropertiesManager;
+import com.sweytech.tinypng.util.Constant;
 import com.sweytech.tinypng.util.TinyPNGManager;
 
 import javax.swing.*;
@@ -33,8 +33,8 @@ public class MainFrame extends JFrame {
 
     public void init() {
 
-        this.setIconImage(getLogoImage());
-        this.setTitle(PropertiesManager.getAppName() + " " + PropertiesManager.getVersionName());
+//        this.setIconImage(getLogoImage());
+        this.setTitle(Constant.APP_NAME + " " + Constant.APP_VESION_NAME);
         this.setSize(400, 500);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -86,7 +86,7 @@ public class MainFrame extends JFrame {
         });
 
         JMenuItem aboutMenuItem = new JMenuItem();
-        aboutMenuItem.setText("About " + PropertiesManager.getAppName());
+        aboutMenuItem.setText("About " + Constant.APP_NAME);
         aboutMenuItem.addActionListener(e -> showAbout());
 
         aboutMenu.add(sourceMenuItem);
@@ -110,6 +110,15 @@ public class MainFrame extends JFrame {
         new DropTarget(label, DnDConstants.ACTION_COPY_OR_MOVE, new DropTargetAdapter() {
             @Override
             public void drop(DropTargetDropEvent dtde) {
+
+                System.out.print("key:" + TinyPNGManager.getApiKey());
+                if (TinyPNGManager.getApiKey() == null || TinyPNGManager.getApiKey().length() == 0) {
+                    System.out.print("null");
+                    JOptionPane.showMessageDialog(null
+                            , "Please set your api key!Go Setting->API KEY", "Error"
+                            , JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 try {
                     if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                         dtde.acceptDrop(DnDConstants.ACTION_COPY_OR_MOVE);//接收拖拽来的数据
@@ -152,10 +161,9 @@ public class MainFrame extends JFrame {
      * show about dialog
      */
     private void showAbout() {
-        JOptionPane.showMessageDialog(null, PropertiesManager.getAppName()
-                        + "\t" + PropertiesManager.getVersionName() + "\n" +
-                        "Copyright©2018 Creative Sway Group", "About", JOptionPane.PLAIN_MESSAGE
-                , new ImageIcon(getLogoImage()));
+        JOptionPane.showMessageDialog(null, Constant.APP_NAME
+                + "\t" + Constant.APP_VESION_NAME + "\n" +
+                "Copyright©2018 Creative Sway Group", "About", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -174,9 +182,9 @@ public class MainFrame extends JFrame {
         }
     }
 
-    private Image getLogoImage() {
-        return Toolkit.getDefaultToolkit().getImage("resource/ic_logo.png");
-    }
+//    private Image getLogoImage() {
+//        return Toolkit.getDefaultToolkit().getImage("resource/ic_logo.png");
+//    }
 
     /**
      * parse and filter image files

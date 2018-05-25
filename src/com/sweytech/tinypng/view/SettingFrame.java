@@ -32,7 +32,7 @@ public class SettingFrame extends JDialog {
         mTxtTitle.setText("Enter your TinyPNG API Key:");
 
         mTxtKeyLicense = new JTextField();
-        mTxtKeyLicense.setText(TinyPNGManager.getApiKey());
+
         mTxtKeyLicense.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -79,6 +79,10 @@ public class SettingFrame extends JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setModalityType(ModalityType.APPLICATION_MODAL);
+
+        //init for user api key
+        mTxtKeyLicense.setText(TinyPNGManager.getApiKey());
+        updateOkBtnStatus();
     }
 
     /**

@@ -27,7 +27,7 @@ public final class TinyPNGManager {
     }
 
     public static String getOutputDir() {
-        String output = System.getProperty("user.dir") + File.separator + PropertiesManager.getAppName() + " output";
+        String output = System.getProperty("user.dir") + File.separator + Constant.APP_NAME + " output";
         File file = new File(output);
         if (!file.exists() || !file.isDirectory()) {
             file.mkdir();
