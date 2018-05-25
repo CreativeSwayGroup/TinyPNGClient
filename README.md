@@ -1,6 +1,9 @@
 # TinyPNGClient
 A client for TinyPNG
 
+You can use this Client to compress your images,just drag them into the window.(Yes,you can select many images in the same time and drag it to the window)
+
+[Download from here.](https://github.com/CreativeSwayGroup/TinyPNGClient/releases)
 
 ```code
 Copyright 2018 Creative Sway Group
