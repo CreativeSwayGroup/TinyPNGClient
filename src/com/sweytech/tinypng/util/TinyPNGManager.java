@@ -23,7 +23,7 @@ public final class TinyPNGManager {
     }
 
     public static String getAuthorization() {
-        return basic("wUQZMoOxRYrWcG3fu4jG6q0anLwt0NCN");
+        return basic(getApiKey());
     }
 
     public static String getOutputDir() {

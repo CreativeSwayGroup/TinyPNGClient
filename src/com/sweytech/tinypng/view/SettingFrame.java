@@ -4,6 +4,8 @@ import com.sweytech.tinypng.util.TinyPNGManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -31,6 +33,22 @@ public class SettingFrame extends JDialog {
 
         mTxtKeyLicense = new JTextField();
         mTxtKeyLicense.setText(TinyPNGManager.getApiKey());
+        mTxtKeyLicense.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateOkBtnStatus();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateOkBtnStatus();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateOkBtnStatus();
+            }
+        });
 
         mPanel1 = new JPanel();
         mPanel1.setLayout(new GridLayout(2, 1, 0, 10));
@@ -45,14 +63,8 @@ public class SettingFrame extends JDialog {
 
         mBtnOK.addActionListener(e -> {
             String input = mTxtKeyLicense.getText();
-            if (input.isEmpty()) {
-                showDialog("Please Enter your TinyPNG API Key");
-                return;
-            }
-
             if (createAndWriteConfig(input)) {
                 setVisible(false);
-                showDialog("config success");
             } else {
                 showDialog("config failed");
             }
@@ -112,5 +124,17 @@ public class SettingFrame extends JDialog {
      */
     private void showDialog(String message) {
         JOptionPane.showMessageDialog(null, message);
+    }
+
+    /**
+     * update ok button clickable
+     */
+    private void updateOkBtnStatus() {
+        String licenseStr = mTxtKeyLicense.getText();
+        if (licenseStr == null || licenseStr.trim().length() == 0) {
+            mBtnOK.setEnabled(false);
+        } else {
+            mBtnOK.setEnabled(true);
+        }
     }
 }
