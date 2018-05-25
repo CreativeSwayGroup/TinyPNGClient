@@ -17,7 +17,7 @@ public final class TinyPNGManager {
     }
 
     public static String getAuthorization() {
-        return basic("your api key");
+        return basic("wUQZMoOxRYrWcG3fu4jG6q0anLwt0NCN");
     }
 
     public static String getOutputDir() {
@@ -41,6 +41,7 @@ public final class TinyPNGManager {
             if (!file.exists()) {
                 continue;
             }
+            System.out.println(path);
             compressImage(path);
         }
     }
@@ -51,13 +52,14 @@ public final class TinyPNGManager {
         HttpManager.requestCompress(path, new HttpCallback() {
             @Override
             public void onSuccess(String result) {
-                HttpManager.requestDownloadFile(result, outputFilePath);
-                System.out.println("onSuccess");
+                new Thread(() -> HttpManager.requestDownloadFile(result, outputFilePath)).start();
+                System.out.println("onSuccess:" + outputFilePath);
+
             }
 
             @Override
             public void onError() {
-                System.out.println("onError");
+                System.out.println("onError:" + path);
 
             }
         });

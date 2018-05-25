@@ -12,11 +12,13 @@ public final class PropertiesManager {
     private static final String KEY_VERSION_NAME = "version_name";
 
     public static String getAppName() {
-        return getProperties(KEY_APP_NAME);
+//        return getProperties(KEY_APP_NAME);
+        return Constant.APP_NAME;
     }
 
     public static String getVersionName() {
-        return getProperties(KEY_VERSION_NAME);
+//        return getProperties(KEY_VERSION_NAME);
+        return Constant.APP_VESION_NAME;
     }
 
     private static String getProperties(String key) {

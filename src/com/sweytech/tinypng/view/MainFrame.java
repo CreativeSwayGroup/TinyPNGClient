@@ -189,7 +189,7 @@ public class MainFrame extends JFrame {
         if (data == null || data.length() == 0) {
             return null;
         }
-        String[] items = data.split(",");
+        String[] items = data.split(", ");
         List<String> list = new ArrayList<>(Arrays.asList(items));
         int listSize = list.size();
         if (listSize == 0) {
