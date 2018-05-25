@@ -33,9 +33,9 @@ public class MainFrame extends JFrame {
 
     public void init() {
 
-//        this.setIconImage(getLogoImage());
+        this.setIconImage(getLogoImage());
         this.setTitle(Constant.APP_NAME + " " + Constant.APP_VESION_NAME);
-        this.setSize(400, 500);
+        this.setSize(400, 200);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
 
         initMenuBar();
         initWorkSpace();
-        initLogSpace();
+//        initLogSpace();
 
         TinyPNGManager.init();
     }
@@ -140,22 +140,22 @@ public class MainFrame extends JFrame {
 
     }
 
-    private void initLogSpace() {
-
-        JLabel logLabel = new JLabel("  Log:");
-        logLabel.setBounds(0, 200, 400, 15);
-        logLabel.setBackground(Color.BLACK);
-        logLabel.setForeground(Color.WHITE);
-        logLabel.setOpaque(true);
-        logLabel.setHorizontalTextPosition(10);
-
-        JTextArea textArea = new JTextArea();
-        textArea.setBounds(0, 215, 400, 300);
-        textArea.setEnabled(false);
-
-        getContentPane().add(logLabel);
-        getContentPane().add(textArea);
-    }
+//    private void initLogSpace() {
+//
+//        JLabel logLabel = new JLabel("  Log:");
+//        logLabel.setBounds(0, 200, 400, 15);
+//        logLabel.setBackground(Color.BLACK);
+//        logLabel.setForeground(Color.WHITE);
+//        logLabel.setOpaque(true);
+//        logLabel.setHorizontalTextPosition(10);
+//
+//        JTextArea textArea = new JTextArea();
+//        textArea.setBounds(0, 215, 400, 300);
+//        textArea.setEnabled(false);
+//
+//        getContentPane().add(logLabel);
+//        getContentPane().add(textArea);
+//    }
 
     /**
      * show about dialog
@@ -182,9 +182,9 @@ public class MainFrame extends JFrame {
         }
     }
 
-//    private Image getLogoImage() {
-//        return Toolkit.getDefaultToolkit().getImage("resource/ic_logo.png");
-//    }
+    private Image getLogoImage() {
+        return Toolkit.getDefaultToolkit().getImage("resource/ic_logo.png");
+    }
 
     /**
      * parse and filter image files
