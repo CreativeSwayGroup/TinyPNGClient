@@ -7,7 +7,7 @@ package com.sweytech.tinypng.util;
 public final class Constant {
 
     public static final String APP_NAME = "TinyPNG Client";
-    public static final String APP_VESION_NAME = "v1.0";
+    public static final String APP_VESION_NAME = "beta0.2";
     
     public static final String HOST = "https://api.tinify.com/";
 
